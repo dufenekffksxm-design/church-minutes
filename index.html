@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#2C2820">
+<title>진실한숲교회 회의록</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F5F0;
+  --bg2: #EDE9E0;
+  --card: #FFFFFF;
+  --border: #E5E2DB;
+  --border2: #D4CFC5;
+  --text1: #2C2820;
+  --text2: #4A4538;
+  --text3: #6B6255;
+  --text4: #8A8070;
+  --text5: #B0A890;
+  --ops: #1B6B4A;
+  --ops-light: #E8F5EE;
+  --cong: #8B5A2B;
+  --cong-light: #FFF3E8;
+  --accent: #C4866B;
+  --radius: 10px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { font-size: 15px; }
+body {
+  font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  color: var(--text1);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* Layout */
+.container { max-width: 720px; margin: 0 auto; padding: 16px 14px 60px; }
+
+/* Animations */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.anim-up { animation: fadeUp .35s ease; }
+.anim-in { animation: fadeIn .25s ease; }
+
+/* Header */
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 0 16px; margin-bottom: 20px;
+  border-bottom: 2px solid var(--border2);
+}
+.header-left small { font-size: 10px; font-weight: 700; color: var(--text5); letter-spacing: 2.5px; text-transform: uppercase; }
+.header-left h1 { font-size: 22px; font-weight: 900; color: var(--text1); letter-spacing: -0.5px; margin-top: 2px; }
+.header-actions { display: flex; gap: 6px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  padding: 9px 16px; border-radius: 8px; border: none;
+  font-family: inherit; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: all .15s; white-space: nowrap;
+}
+.btn:active { transform: scale(.97); }
+.btn-ops { background: var(--ops); color: #fff; box-shadow: 0 2px 8px rgba(27,107,74,.25); }
+.btn-cong { background: var(--cong); color: #fff; box-shadow: 0 2px 8px rgba(139,90,43,.25); }
+.btn-primary { background: var(--text1); color: #fff; }
+.btn-secondary { background: var(--card); color: var(--text3); border: 1px solid var(--border2); }
+.btn-danger { background: #FFF0F0; color: #D4726A; border: 1px solid #F5D5D0; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-block { width: 100%; }
+.btn-icon {
+  width: 34px; height: 34px; padding: 0; border-radius: 7px;
+  background: var(--card); border: 1px solid var(--border);
+  font-size: 15px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.btn-icon:active { transform: scale(.93); }
+
+/* Filter bar */
+.filter-bar { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.filter-tabs {
+  display: flex; gap: 2px; background: var(--card); border-radius: 8px;
+  padding: 3px; border: 1px solid var(--border);
+}
+.filter-tab {
+  padding: 6px 14px; border-radius: 6px; border: none; background: transparent;
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  color: var(--text4); cursor: pointer; transition: all .15s;
+}
+.filter-tab.active { background: var(--text1); color: #fff; }
+.search-input {
+  flex: 1; min-width: 160px; padding: 8px 12px; border-radius: 8px;
+  border: 1px solid var(--border); font-family: inherit; font-size: 13px;
+  background: var(--card); color: var(--text1); outline: none;
+}
+.search-input:focus { border-color: var(--border2); box-shadow: 0 0 0 3px rgba(212,207,197,.3); }
+
+/* Cards */
+.card-list { display: grid; gap: 10px; }
+.minute-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px 18px; cursor: pointer; transition: all .2s;
+  border-left: 4px solid var(--border2);
+}
+.minute-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.07); }
+.minute-card[data-type="operations"] { border-left-color: var(--ops); }
+.minute-card[data-type="congregation"] { border-left-color: var(--cong); }
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.card-badges { display: flex; gap: 6px; margin-bottom: 6px; align-items: center; }
+.badge {
+  font-size: 10px; font-weight: 700; padding: 2px 8px;
+  border-radius: 4px; white-space: nowrap;
+}
+.badge-ops { background: var(--ops-light); color: var(--ops); }
+.badge-cong { background: var(--cong-light); color: var(--cong); }
+.badge-example { background: #FFF0F0; color: #D4726A; }
+.card-title { font-size: 15px; font-weight: 700; color: var(--text1); margin-bottom: 3px; }
+.card-meta { font-size: 12px; color: var(--text4); }
+.card-meta2 { font-size: 12px; color: var(--text5); margin-top: 2px; }
+.card-actions { display: flex; gap: 4px; flex-shrink: 0; }
+.card-footer { font-size: 11px; color: var(--text5); margin-top: 8px; }
+
+/* Empty state */
+.empty {
+  text-align: center; padding: 48px 20px; color: var(--text5);
+  background: var(--card); border-radius: 12px; border: 1px solid var(--border);
+}
+.empty-icon { font-size: 36px; margin-bottom: 8px; }
+.empty-title { font-size: 14px; font-weight: 600; }
+.empty-sub { font-size: 12px; margin-top: 4px; }
+
+/* Info box */
+.info-box {
+  margin-top: 20px; padding: 16px; background: var(--card);
+  border: 1px solid var(--border); border-radius: 12px;
+  font-size: 12px; color: var(--text4); line-height: 1.9;
+}
+.info-box strong { color: var(--text3); }
+.info-box .info-title { font-weight: 700; margin-bottom: 6px; color: var(--text3); font-size: 13px; }
+
+/* Form */
+.form-section { margin-bottom: 20px; }
+.form-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 22px; padding-bottom: 14px; border-bottom: 2px solid var(--border);
+}
+.form-header-bar { width: 5px; height: 34px; border-radius: 3px; flex-shrink: 0; }
+.form-header small { font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+.form-header h2 { font-size: 19px; font-weight: 800; color: var(--text1); }
+.form-grid { display: grid; gap: 10px; }
+.form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form-label { display: block; font-size: 12px; font-weight: 700; color: var(--text3); margin-bottom: 4px; }
+.form-input {
+  width: 100%; padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--border); font-family: inherit;
+  font-size: 13px; background: var(--card); color: var(--text1); outline: none;
+}
+.form-input:focus { border-color: var(--border2); box-shadow: 0 0 0 3px rgba(212,207,197,.25); }
+textarea.form-input { resize: vertical; min-height: 72px; line-height: 1.6; }
+.form-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; }
+
+/* Agenda editor */
+.agenda-item-card {
+  background: #FAFAF8; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px; margin-bottom: 10px;
+}
+.agenda-item-top {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+}
+.agenda-item-num { font-weight: 700; color: var(--text3); font-size: 13px; }
+.agenda-remove {
+  background: none; border: none; color: var(--accent);
+  cursor: pointer; font-size: 20px; line-height: 1; padding: 0 4px;
+}
+.agenda-decision-input { border-left: 3px solid var(--text5) !important; }
+.agenda-add {
+  width: 100%; padding: 10px; background: none;
+  border: 2px dashed var(--border2); border-radius: 8px;
+  color: var(--text4); cursor: pointer; font-family: inherit;
+  font-size: 13px; font-weight: 600;
+}
+.agenda-add:hover { background: rgba(0,0,0,.015); }
+
+/* Viewer */
+.viewer-doc {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px 22px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
+.viewer-header { text-align: center; border-bottom: 3px double var(--border2); padding-bottom: 16px; margin-bottom: 18px; }
+.viewer-church { font-size: 12px; color: var(--text4); }
+.viewer-title { font-size: 20px; font-weight: 800; color: var(--text1); margin: 5px 0 8px; }
+.viewer-badge {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 3px 14px; border-radius: 4px;
+}
+.viewer-badge-ops { border: 1.5px solid var(--ops); color: var(--ops); }
+.viewer-badge-cong { border: 1.5px solid var(--cong); color: var(--cong); }
+
+/* Info table in viewer */
+.info-grid {
+  display: grid; grid-template-columns: 78px 1fr 78px 1fr;
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden; margin-bottom: 16px; font-size: 13px;
+}
+.info-grid-full { grid-column: 2 / -1; }
+.ig-label {
+  background: #F5F3EE; padding: 7px 8px; font-weight: 700;
+  text-align: center; color: var(--text3); font-size: 12px;
+}
+.ig-value { background: var(--card); padding: 7px 10px; color: var(--text1); }
+.viewer-section-title {
+  font-size: 13.5px; font-weight: 700; background: #F5F3EE;
+  padding: 7px 12px; margin: 16px 0 12px; color: var(--text1);
+}
+.viewer-section-title-ops { border-left: 4px solid var(--ops); }
+.viewer-section-title-cong { border-left: 4px solid var(--cong); }
+.viewer-agenda { margin-bottom: 14px; padding-left: 2px; }
+.viewer-agenda-title { font-weight: 700; font-size: 14px; color: var(--text1); margin-bottom: 3px; }
+.viewer-agenda-content {
+  font-size: 13px; color: var(--text2); white-space: pre-wrap;
+  line-height: 1.7; padding-left: 14px;
+}
+.viewer-decision { font-size: 13px; margin-top: 5px; padding: 5px 10px; }
+.viewer-decision-ops { background: var(--ops-light); border-left: 3px solid var(--ops); }
+.viewer-decision-cong { background: var(--cong-light); border-left: 3px solid var(--cong); }
+.viewer-field { font-size: 13px; color: var(--text3); margin-top: 4px; }
+.sign-area {
+  display: flex; justify-content: center; gap: 56px;
+  margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border);
+}
+.sign-box { text-align: center; }
+.sign-line { width: 110px; border-bottom: 1px solid #333; height: 36px; }
+.sign-label { font-size: 12px; color: var(--text3); margin-top: 4px; }
+.viewer-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--text1); color: #fff; padding: 10px 22px;
+  border-radius: 10px; font-size: 13px; font-weight: 600;
+  box-shadow: 0 6px 24px rgba(0,0,0,.2); z-index: 1000;
+  animation: fadeUp .3s ease;
+}
+
+/* Confirm modal */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.35);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 900; animation: fadeIn .2s ease;
+  padding: 20px;
+}
+.modal-box {
+  background: var(--card); border-radius: 14px; padding: 24px;
+  max-width: 340px; width: 100%; box-shadow: 0 16px 48px rgba(0,0,0,.15);
+  animation: fadeUp .25s ease;
+}
+.modal-title { font-size: 16px; font-weight: 800; color: var(--text1); margin-bottom: 8px; }
+.modal-text { font-size: 13px; color: var(--text3); line-height: 1.6; margin-bottom: 18px; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container { padding: 12px 10px 50px; }
+  .header-left h1 { font-size: 19px; }
+  .header-actions { gap: 4px; }
+  .btn { padding: 8px 11px; font-size: 12px; }
+  .form-row2 { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 68px 1fr; }
+  .info-grid-full { grid-column: 2 / -1; }
+  .ig-label { font-size: 11px; padding: 6px; }
+  .sign-area { gap: 36px; }
+  .sign-line { width: 90px; }
+  .viewer-doc { padding: 18px 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="app"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  진실한숲교회 회의록 관리 시스템
+// ══════════════════════════════════════════
+
+const STORAGE_KEY = 'jinsilhan-minutes-v1';
+const TYPES = {
+  operations: { label: '운영위원회', color: 'ops' },
+  congregation: { label: '공동의회', color: 'cong' }
+};
+
+// ── Data helpers ──
+function uid() { return Math.random().toString(36).substr(2,9); }
+function loadData() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch { return []; }
+}
+function saveData(arr) { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+function formatDate(s) {
+  if (!s) return '';
+  const d = new Date(s);
+  const wd = ['일','월','화','수','목','금','토'][d.getDay()];
+  return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일(${wd})`;
+}
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+function esc(s) { const el = document.createElement('div'); el.textContent = s; return el.innerHTML; }
+
+// ── Templates ──
+function getTemplate(type) {
+  if (type === 'operations') return {
+    id: uid(), type, title: '제__회 운영위원회 회의록', date: todayStr(),
+    location: '본교회 소예배실', chairperson: '', secretary: '',
+    attendees: '', absentees: '', openingPrayer: '', closingPrayer: '',
+    nextMeeting: '', notes: '',
+    agendaItems: [
+      { id: uid(), title: '전회 회의록 인준', content: '전회(제__회) 회의록을 낭독하고 이상 없음을 확인하여 참석 위원 전원의 동의로 인준하다.', decision: '원안대로 인준' },
+      { id: uid(), title: '재정 보고', content: '○○월 재정 현황을 보고하다.\n- 수입: ___원\n- 지출: ___원\n- 잔액: ___원', decision: '보고대로 승인' },
+      { id: uid(), title: '안건 1: (안건 제목)', content: '(안건에 대한 상세 설명 및 논의 내용을 기록합니다)\n\n[논의 사항]\n- \n- ', decision: '(찬성 __명, 반대 __명으로 가결/부결)' }
+    ]
+  };
+  return {
+    id: uid(), type, title: '제__회 공동의회 회의록', date: todayStr(),
+    location: '본교회 본당', chairperson: '', secretary: '',
+    attendees: '', absentees: '', openingPrayer: '', closingPrayer: '',
+    nextMeeting: '', notes: '',
+    agendaItems: [
+      { id: uid(), title: '성원 보고', content: '공동의회 성원을 보고하다.\n- 공동의회 구성원 총 __명 중 __명 출석\n- 위임장 제출 __명\n- 성원이 됨을 선포하다.', decision: '성원 확인' },
+      { id: uid(), title: '전년도 결산 보고 및 승인', content: '○○○○년도 결산을 보고하다.\n- 총 수입: ___원\n- 총 지출: ___원\n- 이월금: ___원\n\n(회계 또는 재정부장이 상세 내역을 보고하다)', decision: '출석 의원 과반수 찬성으로 승인' },
+      { id: uid(), title: '신년도 예산(안) 심의 및 의결', content: '○○○○년도 예산(안)을 상정하다.\n- 총 예산: ___원\n- 주요 항목별 설명\n\n[질의응답]\n- ', decision: '출석 의원 과반수 찬성으로 의결' },
+      { id: uid(), title: '임원 선출', content: '(해당 시) 임기 만료에 따른 임원 선출을 진행하다.\n- 후보: \n- 투표 방식: 무기명 비밀투표', decision: '투표 결과 ___을(를) 선출하다' }
+    ]
+  };
+}
+
+// ── Example data ──
+function getExamples() {
+  return [
+    {
+      id: 'ex1', type: 'operations', isExample: true,
+      title: '제42회 운영위원회 회의록', date: '2026-02-15',
+      location: '본교회 소예배실', chairperson: '김영수 장로', secretary: '이미선 권사',
+      attendees: '김영수 장로, 박정호 장로, 이미선 권사, 최은혜 집사, 정민우 집사, 한서연 권사 (6명)',
+      absentees: '송태민 장로 (사유: 출장)', openingPrayer: '박정호 장로',
+      closingPrayer: '한서연 권사', nextMeeting: '2026년 3월 15일(일) 오후 1시',
+      notes: '다음 회의 시 주차장 공사 견적 협상 결과를 보고하기로 함.',
+      agendaItems: [
+        { id: 'e1', title: '전회 회의록 인준', content: '제41회 회의록을 서기가 낭독하고, 이상 없음을 확인하여 참석 위원 전원의 동의로 인준하다.', decision: '원안대로 인준' },
+        { id: 'e2', title: '1월 재정 보고', content: '1월 재정 현황을 회계가 보고하다.\n- 수입: 12,500,000원 (십일조 8,200,000원, 감사헌금 2,100,000원, 기타 2,200,000원)\n- 지출: 11,800,000원 (인건비 5,500,000원, 운영비 3,200,000원, 선교비 2,100,000원, 교육비 1,000,000원)\n- 잔액: 3,700,000원', decision: '보고대로 승인' },
+        { id: 'e3', title: '안건 1: 부활절 행사 계획', content: '부활절 연합예배 및 행사 계획을 논의하다.\n\n[논의 사항]\n- 부활절 날짜: 4월 5일(주일)\n- 새벽 연합예배 진행 여부: 진행하기로 함 (오전 6시)\n- 세례식: 부활절 예배 시 진행\n- 점심 식사: 교육관에서 떡국 나눔\n- 예산: 500,000원 (식비 300,000원, 장식 및 기타 200,000원)', decision: '찬성 6명, 반대 0명으로 원안대로 가결' },
+        { id: 'e4', title: '안건 2: 교회 주차장 보수 공사', content: '교회 주차장 아스팔트 보수 공사 건을 논의하다.\n\n[논의 사항]\n- 현황: 주차장 곳곳에 균열 및 파손 발생\n- 견적: A업체 3,500,000원 / B업체 4,200,000원\n- 최은혜 집사: A업체가 가격은 저렴하나 시공 후기가 부족함을 지적\n- 정민우 집사: B업체가 교회 시설 공사 경험이 있어 신뢰할 수 있음을 의견 제시\n- 결론: B업체로 진행하되 가격 협상을 시도하기로 함', decision: '찬성 5명, 반대 1명으로 B업체 선정 가결 (가격 협상 후 최종 결정)' }
+      ]
+    },
+    {
+      id: 'ex2', type: 'congregation', isExample: true,
+      title: '제15회 정기 공동의회 회의록', date: '2026-01-25',
+      location: '본교회 본당', chairperson: '나담임 목사', secretary: '이미선 권사',
+      attendees: '세례교인 85명 중 62명 출석, 위임장 제출 8명 (총 70명)',
+      absentees: '15명 불참', openingPrayer: '김영수 장로',
+      closingPrayer: '박정호 장로', nextMeeting: '',
+      notes: '폐회 선언 후 교제의 시간을 가짐.',
+      agendaItems: [
+        { id: 'c1', title: '성원 보고', content: '공동의회 성원을 보고하다.\n- 공동의회 구성원(세례교인) 총 85명 중 62명 출석, 위임장 8명\n- 과반수(43명) 이상 출석으로 성원이 됨을 선포하다.', decision: '성원 확인' },
+        { id: 'c2', title: '2025년도 결산 보고 및 승인', content: '2025년도 결산을 회계 최은혜 집사가 보고하다.\n\n- 총 수입: 158,000,000원\n  · 십일조: 98,000,000원\n  · 감사헌금: 25,000,000원\n  · 선교헌금: 15,000,000원\n  · 기타헌금: 20,000,000원\n\n- 총 지출: 152,000,000원\n  · 인건비: 66,000,000원\n  · 운영비: 38,000,000원\n  · 선교비: 25,000,000원\n  · 교육비: 12,000,000원\n  · 시설유지비: 8,000,000원\n  · 구제비: 3,000,000원\n\n- 이월금: 6,000,000원\n\n[질의응답]\n- 박OO 집사: 선교비 집행 내역에 대해 질의\n- 답변: 국내선교 10,000,000원, 해외선교 15,000,000원으로 세부 내역 설명', decision: '출석 의원 과반수 찬성(찬성 65명, 반대 2명, 기권 3명)으로 승인' },
+        { id: 'c3', title: '2026년도 예산(안) 심의 및 의결', content: '2026년도 예산(안)을 재정위원장 박정호 장로가 상정하다.\n\n- 총 예산: 162,000,000원 (전년 대비 2.5% 증가)\n- 주요 변경 사항:\n  · 교육부 예산 15% 증액 (주일학교 활성화)\n  · 시설유지비 25% 증액 (주차장 보수 등)\n  · 선교비 동결\n\n[질의응답]\n- 이OO 권사: 교육부 예산 증액 사유에 대해 질의\n- 답변: 어린이부 교재 교체 및 여름성경학교 확대 운영 계획 설명\n- 김OO 집사: 선교비 동결에 대한 우려 표명\n- 답변: 내년 재정 상황을 보아 추경 편성 가능성 안내', decision: '출석 의원 과반수 찬성(찬성 60명, 반대 5명, 기권 5명)으로 의결' }
+      ]
+    }
+  ];
+}
+
+// ══════════════════════════════════════════
+//  App State
+// ══════════════════════════════════════════
+let state = {
+  view: 'list', // list | viewer | editor
+  minutes: [],
+  current: null,
+  filterType: 'all',
+  search: '',
+  toast: null,
+  modal: null
+};
+
+function setState(patch) {
+  Object.assign(state, patch);
+  render();
+}
+
+function showToast(msg) {
+  state.toast = msg;
+  render();
+  setTimeout(() => { state.toast = null; render(); }, 2200);
+}
+
+// ══════════════════════════════════════════
+//  PDF / Print
+// ══════════════════════════════════════════
+function printMinute(m) {
+  const t = TYPES[m.type];
+  const tc = m.type === 'operations' ? '#1B6B4A' : '#8B5A2B';
+  const agenda = m.agendaItems.map((a,i) => `
+    <div style="margin-bottom:13px;page-break-inside:avoid">
+      <div style="font-weight:bold;font-size:10.5pt;margin-bottom:2px">${i+1}. ${esc(a.title)}</div>
+      <div style="font-size:10pt;padding-left:12px;white-space:pre-wrap;line-height:1.7">${esc(a.content)}</div>
+      ${a.decision ? `<div style="font-size:10pt;margin-top:4px;padding:4px 10px;background:#f9f9f9;border-left:3px solid ${tc}"><b>의결사항:</b> ${esc(a.decision)}</div>` : ''}
+    </div>`).join('');
+
+  const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+@page{size:A4;margin:20mm 18mm}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:11pt;line-height:1.7;color:#222}
+.page{max-width:170mm;margin:0 auto}
+.hdr{text-align:center;border-bottom:3px double #333;padding-bottom:13px;margin-bottom:16px}
+.cn{font-size:10pt;color:#666;margin-bottom:3px}
+.dt{font-size:18pt;font-weight:bold;letter-spacing:2px}
+.tb{display:inline-block;font-size:9pt;padding:2px 12px;border:1.5px solid ${tc};color:${tc};border-radius:3px;margin-top:5px}
+table.info{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:10pt}
+table.info td{padding:5px 8px;border:1px solid #bbb}
+table.info .lb{background:#f5f5f5;font-weight:bold;width:78px;text-align:center}
+.st{font-size:11pt;font-weight:bold;background:#f0f0f0;padding:5px 10px;margin:14px 0 10px;border-left:4px solid ${tc}}
+.sa{display:flex;justify-content:center;gap:56px;margin-top:36px}
+.sb{text-align:center}.sl{width:110px;border-bottom:1px solid #333;height:38px;margin-bottom:4px}
+.fl{font-size:10pt;margin-top:4px}
+</style></head><body>
+<div class="page">
+  <div class="hdr">
+    <div class="cn">진실한숲교회</div>
+    <div class="dt">${esc(m.title)}</div>
+    <div class="tb">${t.label}</div>
+  </div>
+  <table class="info">
+    <tr><td class="lb">일 시</td><td>${esc(formatDate(m.date))}</td><td class="lb">장 소</td><td>${esc(m.location)}</td></tr>
+    <tr><td class="lb">의 장</td><td>${esc(m.chairperson)}</td><td class="lb">서 기</td><td>${esc(m.secretary)}</td></tr>
+    <tr><td class="lb">출석자</td><td colspan="3">${esc(m.attendees)}</td></tr>
+    ${m.absentees ? `<tr><td class="lb">결석자</td><td colspan="3">${esc(m.absentees)}</td></tr>` : ''}
+  </table>
+  ${m.openingPrayer ? `<p class="fl"><b>개회기도:</b> ${esc(m.openingPrayer)}</p>` : ''}
+  <div class="st">회 의 내 용</div>
+  ${agenda}
+  ${m.closingPrayer ? `<p class="fl" style="margin-top:12px"><b>폐회기도:</b> ${esc(m.closingPrayer)}</p>` : ''}
+  ${m.nextMeeting ? `<p class="fl"><b>다음 회의:</b> ${esc(m.nextMeeting)}</p>` : ''}
+  ${m.notes ? `<div class="st">비 고</div><p class="fl">${esc(m.notes).replace(/\n/g,'<br>')}</p>` : ''}
+  <div class="sa">
+    <div class="sb"><div class="sl"></div><div style="font-size:10pt">의장 (인)</div></div>
+    <div class="sb"><div class="sl"></div><div style="font-size:10pt">서기 (인)</div></div>
+  </div>
+</div></body></html>`;
+
+  const w = window.open('','_blank','width=800,height=1000');
+  if (w) { w.document.write(html); w.document.close(); setTimeout(() => w.print(), 500); }
+  else { showToast('팝업이 차단되었습니다. 팝업 허용 후 다시 시도해 주세요.'); }
+}
+
+// ══════════════════════════════════════════
+//  JSON Export/Import
+// ══════════════════════════════════════════
+function exportData() {
+  const data = state.minutes.filter(m => !m.isExample);
+  if (!data.length) { showToast('내보낼 회의록이 없습니다'); return; }
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `회의록_백업_${todayStr()}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('백업 파일을 다운로드했습니다');
+}
+
+function importData() {
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = '.json';
+  inp.onchange = (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const arr = JSON.parse(ev.target.result);
+        if (!Array.isArray(arr)) throw new Error();
+        const existing = new Set(state.minutes.map(m=>m.id));
+        let added = 0;
+        arr.forEach(m => {
+          if (!existing.has(m.id)) { state.minutes.unshift(m); added++; }
+        });
+        saveData(state.minutes);
+        render();
+        showToast(`${added}건의 회의록을 가져왔습니다`);
+      } catch { showToast('올바른 백업 파일이 아닙니다'); }
+    };
+    reader.readAsText(f);
+  };
+  inp.click();
+}
+
+// ══════════════════════════════════════════
+//  Rendering
+// ══════════════════════════════════════════
+const $ = (sel, par) => (par||document).querySelector(sel);
+const $$ = (sel, par) => [...(par||document).querySelectorAll(sel)];
+const app = document.getElementById('app');
+
+function render() {
+  if (state.view === 'list') renderList();
+  else if (state.view === 'viewer') renderViewer();
+  else if (state.view === 'editor') renderEditor();
+
+  // Toast
+  const oldToast = $('.toast');
+  if (oldToast) oldToast.remove();
+  if (state.toast) {
+    const t = document.createElement('div');
+    t.className = 'toast'; t.textContent = state.toast;
+    document.body.appendChild(t);
+  }
+
+  // Modal
+  const oldModal = $('.modal-overlay');
+  if (oldModal) oldModal.remove();
+  if (state.modal) {
+    const ov = document.createElement('div');
+    ov.className = 'modal-overlay';
+    ov.innerHTML = `<div class="modal-box">
+      <div class="modal-title">${state.modal.title}</div>
+      <div class="modal-text">${state.modal.text}</div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary btn-sm" id="modal-cancel">취소</button>
+        <button class="btn btn-danger btn-sm" id="modal-confirm">삭제</button>
+      </div>
+    </div>`;
+    document.body.appendChild(ov);
+    $('#modal-cancel').onclick = () => { state.modal = null; render(); };
+    $('#modal-confirm').onclick = () => { state.modal.onConfirm(); state.modal = null; };
+    ov.onclick = (e) => { if (e.target === ov) { state.modal = null; render(); } };
+  }
+}
+
+// ── List View ──
+function renderList() {
+  const filtered = state.minutes.filter(m => {
+    if (state.filterType !== 'all' && m.type !== state.filterType) return false;
+    if (state.search) {
+      const q = state.search.toLowerCase();
+      return m.title.toLowerCase().includes(q) ||
+        (m.chairperson||'').toLowerCase().includes(q) ||
+        (m.attendees||'').toLowerCase().includes(q) ||
+        m.agendaItems.some(a => a.title.toLowerCase().includes(q) || a.content.toLowerCase().includes(q));
+    }
+    return true;
+  });
+
+  app.innerHTML = `
+    <div class="header">
+      <div class="header-left">
+        <small>진실한숲교회</small>
+        <h1>회의록 관리</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-ops btn-sm" id="new-ops">+ 운영위원회</button>
+        <button class="btn btn-cong btn-sm" id="new-cong">+ 공동의회</button>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-tabs">
+        <button class="filter-tab ${state.filterType==='all'?'active':''}" data-ft="all">전체</button>
+        <button class="filter-tab ${state.filterType==='operations'?'active':''}" data-ft="operations">운영위원회</button>
+        <button class="filter-tab ${state.filterType==='congregation'?'active':''}" data-ft="congregation">공동의회</button>
+      </div>
+      <input class="search-input" placeholder="🔍 회의록 검색..." value="${esc(state.search)}" id="search-input">
+    </div>
+
+    <div class="card-list anim-up">
+      ${filtered.length === 0 ? `
+        <div class="empty">
+          <div class="empty-icon">📋</div>
+          <div class="empty-title">${state.search ? '검색 결과가 없습니다' : '아직 회의록이 없습니다'}</div>
+          <div class="empty-sub">위의 버튼으로 새 회의록을 작성해 보세요</div>
+        </div>` :
+        filtered.map(m => {
+          const t = TYPES[m.type];
+          return `<div class="minute-card" data-type="${m.type}" data-id="${m.id}">
+            <div class="card-top">
+              <div>
+                <div class="card-badges">
+                  <span class="badge badge-${t.color}">${t.label}</span>
+                  ${m.isExample ? '<span class="badge badge-example">예시</span>' : ''}
+                </div>
+                <div class="card-title">${esc(m.title)}</div>
+                <div class="card-meta">${formatDate(m.date)}${m.location ? ' · '+esc(m.location) : ''}</div>
+                ${m.chairperson ? `<div class="card-meta2">의장: ${esc(m.chairperson)}</div>` : ''}
+              </div>
+              <div class="card-actions">
+                <button class="btn-icon card-print" data-id="${m.id}" title="PDF 출력">🖨️</button>
+                ${!m.isExample ? `<button class="btn-icon card-delete" data-id="${m.id}" title="삭제">🗑️</button>` : ''}
+              </div>
+            </div>
+            <div class="card-footer">안건 ${m.agendaItems.length}건</div>
+          </div>`;
+        }).join('')
+      }
+    </div>
+
+    <div class="info-box anim-up" style="margin-top:20px">
+      <div class="info-title">💡 사용 안내</div>
+      <b>예시 회의록</b>을 참고하여 실제 회의록 작성 형식을 확인하세요<br>
+      새 회의록 작성 시 <b>템플릿</b>이 자동으로 채워집니다<br>
+      🖨️ 버튼으로 <b>PDF 출력</b> → 카카오톡/이메일로 공유하세요<br>
+      작성한 회의록은 이 기기에 <b>자동 저장</b>됩니다
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn btn-secondary btn-sm" id="btn-export" style="flex:1">📤 백업 내보내기</button>
+      <button class="btn btn-secondary btn-sm" id="btn-import" style="flex:1">📥 백업 가져오기</button>
+    </div>
+  `;
+
+  // Events
+  $('#new-ops').onclick = () => { state.current = getTemplate('operations'); setState({view:'editor'}); };
+  $('#new-cong').onclick = () => { state.current = getTemplate('congregation'); setState({view:'editor'}); };
+  $$('.filter-tab').forEach(b => b.onclick = () => setState({filterType: b.dataset.ft}));
+  $('#search-input').oninput = (e) => { state.search = e.target.value; render(); };
+  $('#btn-export').onclick = exportData;
+  $('#btn-import').onclick = importData;
+
+  $$('.minute-card').forEach(c => {
+    c.onclick = (e) => {
+      if (e.target.closest('.card-actions')) return;
+      const m = state.minutes.find(x => x.id === c.dataset.id);
+      if (m) { state.current = JSON.parse(JSON.stringify(m)); setState({view:'viewer'}); }
+    };
+  });
+  $$('.card-print').forEach(b => {
+    b.onclick = (e) => { e.stopPropagation(); const m = state.minutes.find(x=>x.id===b.dataset.id); if(m) printMinute(m); };
+  });
+  $$('.card-delete').forEach(b => {
+    b.onclick = (e) => {
+      e.stopPropagation();
+      state.modal = {
+        title: '회의록 삭제', text: '이 회의록을 삭제하시겠습니까?<br>삭제 후 복구할 수 없습니다.',
+        onConfirm: () => {
+          state.minutes = state.minutes.filter(x => x.id !== b.dataset.id);
+          saveData(state.minutes);
+          render();
+          showToast('삭제되었습니다');
+        }
+      };
+      render();
+    };
+  });
+}
+
+// ── Viewer ──
+function renderViewer() {
+  const m = state.current;
+  const t = TYPES[m.type];
+  const tc = t.color; // ops or cong
+
+  app.innerHTML = `
+    <div class="header" style="border:none;margin-bottom:12px;padding-bottom:8px">
+      <div class="header-left">
+        <small>진실한숲교회</small>
+        <h1>회의록 열람</h1>
+      </div>
+    </div>
+    <button class="btn btn-secondary btn-sm" id="back-list" style="margin-bottom:14px">← 목록으로</button>
+
+    <div class="viewer-doc anim-up">
+      <div class="viewer-header">
+        <div class="viewer-church">진실한숲교회</div>
+        <div class="viewer-title">${esc(m.title)}</div>
+        <span class="viewer-badge viewer-badge-${tc}">${t.label}</span>
+      </div>
+
+      <div class="info-grid">
+        <div class="ig-label">일 시</div><div class="ig-value">${esc(formatDate(m.date))}</div>
+        <div class="ig-label">장 소</div><div class="ig-value">${esc(m.location)}</div>
+        <div class="ig-label">의 장</div><div class="ig-value">${esc(m.chairperson)}</div>
+        <div class="ig-label">서 기</div><div class="ig-value">${esc(m.secretary)}</div>
+        <div class="ig-label">출석자</div><div class="ig-value info-grid-full">${esc(m.attendees)}</div>
+        ${m.absentees ? `<div class="ig-label">결석자</div><div class="ig-value info-grid-full">${esc(m.absentees)}</div>` : ''}
+      </div>
+
+      ${m.openingPrayer ? `<div class="viewer-field"><b>개회기도:</b> ${esc(m.openingPrayer)}</div>` : ''}
+
+      <div class="viewer-section-title viewer-section-title-${tc}">회 의 내 용</div>
+
+      ${m.agendaItems.map((a,i) => `
+        <div class="viewer-agenda">
+          <div class="viewer-agenda-title">${i+1}. ${esc(a.title)}</div>
+          <div class="viewer-agenda-content">${esc(a.content)}</div>
+          ${a.decision ? `<div class="viewer-decision viewer-decision-${tc}"><b>의결사항:</b> ${esc(a.decision)}</div>` : ''}
+        </div>
+      `).join('')}
+
+      ${m.closingPrayer ? `<div class="viewer-field" style="margin-top:12px"><b>폐회기도:</b> ${esc(m.closingPrayer)}</div>` : ''}
+      ${m.nextMeeting ? `<div class="viewer-field"><b>다음 회의:</b> ${esc(m.nextMeeting)}</div>` : ''}
+
+      ${m.notes ? `
+        <div class="viewer-section-title viewer-section-title-${tc}">비 고</div>
+        <div style="font-size:13px;color:var(--text2);white-space:pre-wrap;padding:0 4px">${esc(m.notes)}</div>
+      ` : ''}
+
+      <div class="sign-area">
+        <div class="sign-box"><div class="sign-line"></div><div class="sign-label">의장 (인)</div></div>
+        <div class="sign-box"><div class="sign-line"></div><div class="sign-label">서기 (인)</div></div>
+      </div>
+    </div>
+
+    <div class="viewer-actions">
+      <button class="btn btn-secondary btn-sm" id="btn-print">🖨️ PDF 출력</button>
+      ${!m.isExample ? `<button class="btn btn-primary btn-sm" id="btn-edit">수정하기</button>` : ''}
+    </div>
+  `;
+
+  $('#back-list').onclick = () => setState({view:'list', current:null});
+  $('#btn-print').onclick = () => printMinute(m);
+  const editBtn = $('#btn-edit');
+  if (editBtn) editBtn.onclick = () => setState({view:'editor'});
+}
+
+// ── Editor ──
+function renderEditor() {
+  const m = state.current;
+  const t = TYPES[m.type];
+  const tc = t.color;
+  const isNew = !state.minutes.find(x => x.id === m.id);
+
+  app.innerHTML = `
+    <div class="anim-up">
+      <div class="form-header">
+        <div class="form-header-bar" style="background:${m.type==='operations'?'var(--ops)':'var(--cong)'}"></div>
+        <div>
+          <small style="color:${m.type==='operations'?'var(--ops)':'var(--cong)'}">${t.label}</small>
+          <h2>회의록 ${isNew ? '작성' : '수정'}</h2>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <label class="form-label">회의 제목</label>
+          <input class="form-input" id="f-title" value="${esc(m.title)}" placeholder="예: 제42회 운영위원회 회의록">
+        </div>
+        <div class="form-row2">
+          <div><label class="form-label">일시</label><input type="date" class="form-input" id="f-date" value="${m.date}"></div>
+          <div><label class="form-label">장소</label><input class="form-input" id="f-location" value="${esc(m.location)}"></div>
+        </div>
+        <div class="form-row2">
+          <div><label class="form-label">의장</label><input class="form-input" id="f-chair" value="${esc(m.chairperson)}" placeholder="예: 김영수 장로"></div>
+          <div><label class="form-label">서기</label><input class="form-input" id="f-sec" value="${esc(m.secretary)}" placeholder="예: 이미선 권사"></div>
+        </div>
+        <div><label class="form-label">출석자</label><input class="form-input" id="f-attend" value="${esc(m.attendees)}" placeholder="출석자 명단"></div>
+        <div><label class="form-label">결석자</label><input class="form-input" id="f-absent" value="${esc(m.absentees)}" placeholder="결석자 및 사유"></div>
+        <div><label class="form-label">개회기도</label><input class="form-input" id="f-open" value="${esc(m.openingPrayer)}" placeholder="기도자 이름"></div>
+
+        <div>
+          <label class="form-label">회의 안건</label>
+          <div id="agenda-container">
+            ${m.agendaItems.map((a,i) => agendaItemHTML(a,i)).join('')}
+          </div>
+          <button class="agenda-add" id="add-agenda">+ 안건 추가</button>
+        </div>
+
+        <div><label class="form-label">폐회기도</label><input class="form-input" id="f-close" value="${esc(m.closingPrayer)}" placeholder="기도자 이름"></div>
+        <div><label class="form-label">다음 회의</label><input class="form-input" id="f-next" value="${esc(m.nextMeeting)}" placeholder="예: 2026년 4월 15일(일) 오후 1시"></div>
+        <div><label class="form-label">비고</label><textarea class="form-input" id="f-notes" rows="2" placeholder="추가 사항">${esc(m.notes)}</textarea></div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-secondary" id="btn-cancel">취소</button>
+        <button class="btn btn-primary" id="btn-save">💾 저장하기</button>
+      </div>
+    </div>
+  `;
+
+  // Agenda events
+  bindAgendaEvents();
+  $('#add-agenda').onclick = () => {
+    m.agendaItems.push({ id: uid(), title: '안건 '+(m.agendaItems.length+1), content: '', decision: '' });
+    const container = $('#agenda-container');
+    container.innerHTML = m.agendaItems.map((a,i) => agendaItemHTML(a,i)).join('');
+    bindAgendaEvents();
+  };
+
+  // Save
+  $('#btn-save').onclick = () => {
+    collectFormData();
+    const exists = state.minutes.find(x => x.id === m.id);
+    if (exists) {
+      state.minutes = state.minutes.map(x => x.id === m.id ? JSON.parse(JSON.stringify(m)) : x);
+    } else {
+      state.minutes.unshift(JSON.parse(JSON.stringify(m)));
+    }
+    saveData(state.minutes);
+    showToast('저장되었습니다');
+    setState({view:'viewer'});
+  };
+
+  // Cancel
+  $('#btn-cancel').onclick = () => {
+    const exists = state.minutes.find(x => x.id === m.id);
+    if (exists) { state.current = JSON.parse(JSON.stringify(exists)); setState({view:'viewer'}); }
+    else setState({view:'list', current:null});
+  };
+}
+
+function agendaItemHTML(a, i) {
+  return `<div class="agenda-item-card" data-aid="${a.id}">
+    <div class="agenda-item-top">
+      <span class="agenda-item-num">안건 ${i+1}</span>
+      <button class="agenda-remove" data-aid="${a.id}">×</button>
+    </div>
+    <input class="form-input ai-title" value="${esc(a.title)}" placeholder="안건 제목" data-aid="${a.id}">
+    <textarea class="form-input ai-content" rows="3" placeholder="논의 내용을 기록하세요" data-aid="${a.id}">${esc(a.content)}</textarea>
+    <input class="form-input agenda-decision-input ai-decision" value="${esc(a.decision)}" placeholder="의결사항 (예: 찬성 5명, 반대 0명으로 가결)" data-aid="${a.id}">
+  </div>`;
+}
+
+function bindAgendaEvents() {
+  const m = state.current;
+  $$('.agenda-remove').forEach(b => {
+    b.onclick = () => {
+      if (m.agendaItems.length <= 1) return;
+      collectAgendaData();
+      m.agendaItems = m.agendaItems.filter(a => a.id !== b.dataset.aid);
+      const container = $('#agenda-container');
+      container.innerHTML = m.agendaItems.map((a,i) => agendaItemHTML(a,i)).join('');
+      bindAgendaEvents();
+    };
+  });
+}
+
+function collectAgendaData() {
+  const m = state.current;
+  $$('.agenda-item-card').forEach(card => {
+    const aid = card.dataset.aid;
+    const item = m.agendaItems.find(a => a.id === aid);
+    if (!item) return;
+    const titleEl = card.querySelector('.ai-title');
+    const contentEl = card.querySelector('.ai-content');
+    const decisionEl = card.querySelector('.ai-decision');
+    if (titleEl) item.title = titleEl.value;
+    if (contentEl) item.content = contentEl.value;
+    if (decisionEl) item.decision = decisionEl.value;
+  });
+}
+
+function collectFormData() {
+  const m = state.current;
+  m.title = ($('#f-title')||{}).value || m.title;
+  m.date = ($('#f-date')||{}).value || m.date;
+  m.location = ($('#f-location')||{}).value || '';
+  m.chairperson = ($('#f-chair')||{}).value || '';
+  m.secretary = ($('#f-sec')||{}).value || '';
+  m.attendees = ($('#f-attend')||{}).value || '';
+  m.absentees = ($('#f-absent')||{}).value || '';
+  m.openingPrayer = ($('#f-open')||{}).value || '';
+  m.closingPrayer = ($('#f-close')||{}).value || '';
+  m.nextMeeting = ($('#f-next')||{}).value || '';
+  m.notes = ($('#f-notes')||{}).value || '';
+  collectAgendaData();
+}
+
+// ══════════════════════════════════════════
+//  Init
+// ══════════════════════════════════════════
+(function init() {
+  state.minutes = loadData();
+  if (!state.minutes.length) {
+    state.minutes = getExamples();
+    saveData(state.minutes);
+  }
+  render();
+})();
+</script>
+</body>
+</html>
