@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="회의록">
+<meta name="theme-color" content="#2C2820">
+<meta name="description" content="진실한숲교회 회의록 관리 시스템">
+<title>진실한숲교회 회의록</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZBRjdGMCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0YwRUFERSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMzYiIGZpbGw9InVybCgjYmcpIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI4NiIgcj0iNTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzZCNEYyRSIgc3Ryb2tlLXdpZHRoPSIyLjUiLz48Y2lyY2xlIGN4PSI5MCIgY3k9Ijg2IiByPSI1MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNkI0RjJFIiBzdHJva2Utd2lkdGg9IjAuOCIvPjxnIGZpbGw9IiM2QjRGMkUiPjxjaXJjbGUgY3g9IjkwIiBjeT0iMjguNSIgcj0iMiIvPjxjaXJjbGUgY3g9IjkwIiBjeT0iMTQzLjUiIHI9IjIiLz48Y2lyY2xlIGN4PSIzMi41IiBjeT0iODYiIHI9IjIiLz48Y2lyY2xlIGN4PSIxNDcuNSIgY3k9Ijg2IiByPSIyIi8+PGNpcmNsZSBjeD0iNDkiIGN5PSI0NSIgcj0iMS41Ii8+PGNpcmNsZSBjeD0iMTMxIiBjeT0iNDUiIHI9IjEuNSIvPjxjaXJjbGUgY3g9IjQ5IiBjeT0iMTI3IiByPSIxLjUiLz48Y2lyY2xlIGN4PSIxMzEiIGN5PSIxMjciIHI9IjEuNSIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5MCw1NikiIGZpbGw9IiM2QjRGMkUiPjxyZWN0IHg9Ii0xLjUiIHk9Ii04IiB3aWR0aD0iMyIgaGVpZ2h0PSIxNiIgcng9IjEiLz48cmVjdCB4PSItNiIgeT0iLTMuNSIgd2lkdGg9IjEyIiBoZWlnaHQ9IjMiIHJ4PSIxIi8+PC9nPjx0ZXh0IHg9IjkwIiB5PSI5MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjIyIiBmaWxsPSIjNkI0RjJFIj7tmozsnZjroZ08L3RleHQ+PHRleHQgeD0iOTAiIHk9IjExOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXdlaWdodD0iNjAwIiBmb250LXNpemU9IjkuNSIgZmlsbD0iIzhCN0E1RSIgbGV0dGVyLXNwYWNpbmc9IjEiPuynhOyLpO2VnOyIsuq1kO2ajDwvdGV4dD48dGV4dCB4PSI5MCIgeT0iMTY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ic2VyaWYiIGZvbnQtd2VpZ2h0PSI2MDAiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNCMEEwODAiIGxldHRlci1zcGFjaW5nPSIyIj5NSU5VVEVTPC90ZXh0Pjwvc3ZnPgo=">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZBRjdGMCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0YwRUFERSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMzYiIGZpbGw9InVybCgjYmcpIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI4NiIgcj0iNTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzZCNEYyRSIgc3Ryb2tlLXdpZHRoPSIyLjUiLz48Y2lyY2xlIGN4PSI5MCIgY3k9Ijg2IiByPSI1MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNkI0RjJFIiBzdHJva2Utd2lkdGg9IjAuOCIvPjxnIGZpbGw9IiM2QjRGMkUiPjxjaXJjbGUgY3g9IjkwIiBjeT0iMjguNSIgcj0iMiIvPjxjaXJjbGUgY3g9IjkwIiBjeT0iMTQzLjUiIHI9IjIiLz48Y2lyY2xlIGN4PSIzMi41IiBjeT0iODYiIHI9IjIiLz48Y2lyY2xlIGN4PSIxNDcuNSIgY3k9Ijg2IiByPSIyIi8+PGNpcmNsZSBjeD0iNDkiIGN5PSI0NSIgcj0iMS41Ii8+PGNpcmNsZSBjeD0iMTMxIiBjeT0iNDUiIHI9IjEuNSIvPjxjaXJjbGUgY3g9IjQ5IiBjeT0iMTI3IiByPSIxLjUiLz48Y2lyY2xlIGN4PSIxMzEiIGN5PSIxMjciIHI9IjEuNSIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5MCw1NikiIGZpbGw9IiM2QjRGMkUiPjxyZWN0IHg9Ii0xLjUiIHk9Ii04IiB3aWR0aD0iMyIgaGVpZ2h0PSIxNiIgcng9IjEiLz48cmVjdCB4PSItNiIgeT0iLTMuNSIgd2lkdGg9IjEyIiBoZWlnaHQ9IjMiIHJ4PSIxIi8+PC9nPjx0ZXh0IHg9IjkwIiB5PSI5MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjIyIiBmaWxsPSIjNkI0RjJFIj7tmozsnZjroZ08L3RleHQ+PHRleHQgeD0iOTAiIHk9IjExOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXdlaWdodD0iNjAwIiBmb250LXNpemU9IjkuNSIgZmlsbD0iIzhCN0E1RSIgbGV0dGVyLXNwYWNpbmc9IjEiPuynhOyLpO2VnOyIsuq1kO2ajDwvdGV4dD48dGV4dCB4PSI5MCIgeT0iMTY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ic2VyaWYiIGZvbnQtd2VpZ2h0PSI2MDAiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNCMEEwODAiIGxldHRlci1zcGFjaW5nPSIyIj5NSU5VVEVTPC90ZXh0Pjwvc3ZnPgo=">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi7KeE7Iuk7ZWc7Iiy6rWQ7ZqMIO2ajOydmOuhnSIsInNob3J0X25hbWUiOiLtmozsnZjroZ0iLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI0ZBRjdGMCIsInRoZW1lX2NvbG9yIjoiIzJDMjgyMCIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBeE9EQWdNVGd3SWo0OFpHVm1jejQ4YkdsdVpXRnlSM0poWkdsbGJuUWdhV1E5SW1KbklpQjRNVDBpTUNJZ2VURTlJakFpSUhneVBTSXhJaUI1TWowaU1TSStQSE4wYjNBZ2IyWm1jMlYwUFNJd0pTSWdjM1J2Y0MxamIyeHZjajBpSTBaQlJqZEdNQ0l2UGp4emRHOXdJRzltWm5ObGREMGlNVEF3SlNJZ2MzUnZjQzFqYjJ4dmNqMGlJMFl3UlVGRVJTSXZQand2YkdsdVpXRnlSM0poWkdsbGJuUStQQzlrWldaelBqeHlaV04wSUhkcFpIUm9QU0l4T0RBaUlHaGxhV2RvZEQwaU1UZ3dJaUJ5ZUQwaU16WWlJR1pwYkd3OUluVnliQ2dqWW1jcElpOCtQR05wY21Oc1pTQmplRDBpT1RBaUlHTjVQU0k0TmlJZ2NqMGlOVGdpSUdacGJHdzlJbTV2Ym1VaUlITjBjbTlyWlQwaUl6WkNORVl5UlNJZ2MzUnliMnRsTFhkcFpIUm9QU0l5TGpVaUx6NDhZMmx5WTJ4bElHTjRQU0k1TUNJZ1kzazlJamcySWlCeVBTSTFNaUlnWm1sc2JEMGlibTl1WlNJZ2MzUnliMnRsUFNJak5rSTBSakpGSWlCemRISnZhMlV0ZDJsa2RHZzlJakF1T0NJdlBqeG5JR1pwYkd3OUlpTTJRalJHTWtVaVBqeGphWEpqYkdVZ1kzZzlJamt3SWlCamVUMGlNamd1TlNJZ2NqMGlNaUl2UGp4amFYSmpiR1VnWTNnOUlqa3dJaUJqZVQwaU1UUXpMalVpSUhJOUlqSWlMejQ4WTJseVkyeGxJR040UFNJek1pNDFJaUJqZVQwaU9EWWlJSEk5SWpJaUx6NDhZMmx5WTJ4bElHTjRQU0l4TkRjdU5TSWdZM2s5SWpnMklpQnlQU0l5SWk4K1BHTnBjbU5zWlNCamVEMGlORGtpSUdONVBTSTBOU0lnY2owaU1TNDFJaTgrUEdOcGNtTnNaU0JqZUQwaU1UTXhJaUJqZVQwaU5EVWlJSEk5SWpFdU5TSXZQanhqYVhKamJHVWdZM2c5SWpRNUlpQmplVDBpTVRJM0lpQnlQU0l4TGpVaUx6NDhZMmx5WTJ4bElHTjRQU0l4TXpFaUlHTjVQU0l4TWpjaUlISTlJakV1TlNJdlBqd3ZaejQ4WnlCMGNtRnVjMlp2Y20wOUluUnlZVzV6YkdGMFpTZzVNQ3cxTmlraUlHWnBiR3c5SWlNMlFqUkdNa1VpUGp4eVpXTjBJSGc5SWkweExqVWlJSGs5SWkwNElpQjNhV1IwYUQwaU15SWdhR1ZwWjJoMFBTSXhOaUlnY25nOUlqRWlMejQ4Y21WamRDQjRQU0l0TmlJZ2VUMGlMVE11TlNJZ2QybGtkR2c5SWpFeUlpQm9aV2xuYUhROUlqTWlJSEo0UFNJeElpOCtQQzluUGp4MFpYaDBJSGc5SWprd0lpQjVQU0k1TUNJZ2RHVjRkQzFoYm1Ob2IzSTlJbTFwWkdSc1pTSWdabTl1ZEMxbVlXMXBiSGs5SW5ObGNtbG1JaUJtYjI1MExYZGxhV2RvZEQwaU9UQXdJaUJtYjI1MExYTnBlbVU5SWpJeUlpQm1hV3hzUFNJak5rSTBSakpGSWo3dG1venNuWmpyb1owOEwzUmxlSFErUEhSbGVIUWdlRDBpT1RBaUlIazlJakV4T0NJZ2RHVjRkQzFoYm1Ob2IzSTlJbTFwWkdSc1pTSWdabTl1ZEMxbVlXMXBiSGs5SW5ObGNtbG1JaUJtYjI1MExYZGxhV2RvZEQwaU5qQXdJaUJtYjI1MExYTnBlbVU5SWprdU5TSWdabWxzYkQwaUl6aENOMEUxUlNJZ2JHVjBkR1Z5TFhOd1lXTnBibWM5SWpFaVB1eW5oT3lMcE8yVm5PeUlzdXExa08yYWpEd3ZkR1Y0ZEQ0OGRHVjRkQ0I0UFNJNU1DSWdlVDBpTVRZMUlpQjBaWGgwTFdGdVkyaHZjajBpYldsa1pHeGxJaUJtYjI1MExXWmhiV2xzZVQwaWMyVnlhV1lpSUdadmJuUXRkMlZwWjJoMFBTSTJNREFpSUdadmJuUXRjMmw2WlQwaU1UQWlJR1pwYkd3OUlpTkNNRUV3T0RBaUlHeGxkSFJsY2kxemNHRmphVzVuUFNJeUlqNU5TVTVWVkVWVFBDOTBaWGgwUGp3dmMzWm5QZ289Iiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#F7F5F0;--bg2:#EDE9E0;--card:#FFFFFF;--border:#E5E2DB;--border2:#D4CFC5;
+  --text1:#2C2820;--text2:#4A4538;--text3:#6B6255;--text4:#8A8070;--text5:#B0A890;
+  --ops:#1B6B4A;--ops-light:#E8F5EE;--cong:#8B5A2B;--cong-light:#FFF3E8;--accent:#C4866B;
+  --radius:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:15px}
+body{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);color:var(--text1);min-height:100vh;min-height:100dvh}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+.container{max-width:720px;margin:0 auto;padding:16px 14px 60px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.anim-up{animation:fadeUp .35s ease}.anim-in{animation:fadeIn .25s ease}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:9px 16px;border-radius:8px;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn:active{transform:scale(.97)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-ops{background:var(--ops);color:#fff;box-shadow:0 2px 8px rgba(27,107,74,.25)}
+.btn-cong{background:var(--cong);color:#fff;box-shadow:0 2px 8px rgba(139,90,43,.25)}
+.btn-primary{background:var(--text1);color:#fff}
+.btn-secondary{background:var(--card);color:var(--text3);border:1px solid var(--border2)}
+.btn-danger{background:#FFF0F0;color:#D4726A;border:1px solid #F5D5D0}
+.btn-sm{padding:6px 12px;font-size:12px}.btn-block{width:100%}
+.btn-icon{width:34px;height:34px;padding:0;border-radius:7px;background:var(--card);border:1px solid var(--border);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.btn-icon:active{transform:scale(.93)}
+
+/* Filter */
+.filter-bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.filter-tabs{display:flex;gap:2px;background:var(--card);border-radius:8px;padding:3px;border:1px solid var(--border)}
+.filter-tab{padding:6px 14px;border-radius:6px;border:none;background:transparent;font-family:inherit;font-size:12px;font-weight:600;color:var(--text4);cursor:pointer;transition:all .15s}
+.filter-tab.active{background:var(--text1);color:#fff}
+.search-input{flex:1;min-width:160px;padding:8px 12px;border-radius:8px;border:1px solid var(--border);font-family:inherit;font-size:13px;background:var(--card);color:var(--text1);outline:none}
+.search-input:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(212,207,197,.3)}
+
+/* Cards */
+.card-list{display:grid;gap:10px}
+.minute-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;cursor:pointer;transition:all .2s;border-left:4px solid var(--border2)}
+.minute-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.minute-card[data-type="operations"]{border-left-color:var(--ops)}
+.minute-card[data-type="congregation"]{border-left-color:var(--cong)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start}
+.card-badges{display:flex;gap:6px;margin-bottom:6px;align-items:center}
+.badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap}
+.badge-ops{background:var(--ops-light);color:var(--ops)}.badge-cong{background:var(--cong-light);color:var(--cong)}
+.badge-example{background:#FFF0F0;color:#D4726A}
+.card-title{font-size:15px;font-weight:700;color:var(--text1);margin-bottom:3px}
+.card-meta{font-size:12px;color:var(--text4)}.card-meta2{font-size:12px;color:var(--text5);margin-top:2px}
+.card-actions{display:flex;gap:4px;flex-shrink:0}
+.card-footer{font-size:11px;color:var(--text5);margin-top:8px}
+
+/* Empty */
+.empty{text-align:center;padding:48px 20px;color:var(--text5);background:var(--card);border-radius:12px;border:1px solid var(--border)}
+.empty-icon{font-size:36px;margin-bottom:8px}.empty-title{font-size:14px;font-weight:600}.empty-sub{font-size:12px;margin-top:4px}
+
+/* Info */
+.info-box{margin-top:20px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;font-size:12px;color:var(--text4);line-height:1.9}
+.info-box strong{color:var(--text3)}.info-box .info-title{font-weight:700;margin-bottom:6px;color:var(--text3);font-size:13px}
+
+/* Form */
+.form-header{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:14px;border-bottom:2px solid var(--border)}
+.form-header-bar{width:5px;height:34px;border-radius:3px;flex-shrink:0}
+.form-header small{font-size:11px;font-weight:700;letter-spacing:1px}
+.form-header h2{font-size:19px;font-weight:800;color:var(--text1)}
+.form-grid{display:grid;gap:10px}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-label{display:block;font-size:12px;font-weight:700;color:var(--text3);margin-bottom:4px}
+.form-input{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);font-family:inherit;font-size:13px;background:var(--card);color:var(--text1);outline:none}
+.form-input:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(212,207,197,.25)}
+textarea.form-input{resize:vertical;min-height:72px;line-height:1.6}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:24px}
+
+/* Agenda */
+.agenda-item-card{background:#FAFAF8;border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.agenda-item-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.agenda-item-num{font-weight:700;color:var(--text3);font-size:13px}
+.agenda-remove{background:none;border:none;color:var(--accent);cursor:pointer;font-size:20px;line-height:1;padding:0 4px}
+.agenda-decision-input{border-left:3px solid var(--text5)!important}
+.agenda-add{width:100%;padding:10px;background:none;border:2px dashed var(--border2);border-radius:8px;color:var(--text4);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600}
+.agenda-add:hover{background:rgba(0,0,0,.015)}
+
+/* Viewer */
+.viewer-doc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 22px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.viewer-header{text-align:center;border-bottom:3px double var(--border2);padding-bottom:16px;margin-bottom:18px}
+.viewer-church{font-size:12px;color:var(--text4)}
+.viewer-title{font-size:20px;font-weight:800;color:var(--text1);margin:5px 0 8px}
+.viewer-badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 14px;border-radius:4px}
+.viewer-badge-ops{border:1.5px solid var(--ops);color:var(--ops)}.viewer-badge-cong{border:1.5px solid var(--cong);color:var(--cong)}
+.info-grid{display:grid;grid-template-columns:78px 1fr 78px 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px;font-size:13px}
+.info-grid-full{grid-column:2/-1}
+.ig-label{background:#F5F3EE;padding:7px 8px;font-weight:700;text-align:center;color:var(--text3);font-size:12px}
+.ig-value{background:var(--card);padding:7px 10px;color:var(--text1)}
+.viewer-section-title{font-size:13.5px;font-weight:700;background:#F5F3EE;padding:7px 12px;margin:16px 0 12px;color:var(--text1)}
+.viewer-section-title-ops{border-left:4px solid var(--ops)}.viewer-section-title-cong{border-left:4px solid var(--cong)}
+.viewer-agenda{margin-bottom:14px;padding-left:2px}
+.viewer-agenda-title{font-weight:700;font-size:14px;color:var(--text1);margin-bottom:3px}
+.viewer-agenda-content{font-size:13px;color:var(--text2);white-space:pre-wrap;line-height:1.7;padding-left:14px}
+.viewer-decision{font-size:13px;margin-top:5px;padding:5px 10px}
+.viewer-decision-ops{background:var(--ops-light);border-left:3px solid var(--ops)}
+.viewer-decision-cong{background:var(--cong-light);border-left:3px solid var(--cong)}
+.viewer-field{font-size:13px;color:var(--text3);margin-top:4px}
+.sign-area{display:flex;justify-content:center;gap:56px;margin-top:32px;padding-top:16px;border-top:1px solid var(--border)}
+.sign-box{text-align:center}.sign-line{width:110px;border-bottom:1px solid #333;height:36px}
+.sign-label{font-size:12px;color:var(--text3);margin-top:4px}
+.viewer-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+
+/* Login */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px 28px;max-width:360px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.08);animation:fadeUp .4s ease}
+.login-box h1{font-size:22px;font-weight:900;text-align:center;color:var(--text1);margin-bottom:4px}
+.login-box .sub{font-size:12px;color:var(--text4);text-align:center;margin-bottom:24px}
+.login-error{background:#FFF0F0;color:#D4726A;padding:8px 12px;border-radius:8px;font-size:12px;margin-bottom:12px;display:none}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text1);color:#fff;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.2);z-index:1000;animation:fadeUp .3s ease}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;z-index:900;animation:fadeIn .2s ease;padding:20px}
+.modal-box{background:var(--card);border-radius:14px;padding:24px;max-width:380px;width:100%;box-shadow:0 16px 48px rgba(0,0,0,.15);animation:fadeUp .25s ease}
+.modal-title{font-size:16px;font-weight:800;color:var(--text1);margin-bottom:8px}
+.modal-text{font-size:13px;color:var(--text3);line-height:1.6;margin-bottom:18px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end}
+
+/* Loading */
+.spinner{width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--text1);border-radius:50%;animation:spin .6s linear infinite;margin:0 auto}
+.loading-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;padding:40px;color:var(--text4);font-size:13px}
+
+/* User bar */
+.user-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;font-size:12px}
+.user-info{display:flex;align-items:center;gap:8px}
+.user-role{padding:2px 8px;border-radius:4px;font-weight:700;font-size:10px}
+.role-pastor{background:#E8E0F5;color:#6B4FA0}.role-secretary{background:var(--ops-light);color:var(--ops)}.role-viewer{background:#F0F0F0;color:var(--text4)}
+
+@media(max-width:480px){
+  .container{padding:12px 10px 50px}.form-row2{grid-template-columns:1fr}
+  .info-grid{grid-template-columns:68px 1fr}.info-grid-full{grid-column:2/-1}
+  .sign-area{gap:36px}.sign-line{width:90px}.viewer-doc{padding:18px 14px}
+  .header-actions{flex-wrap:wrap;gap:4px}.btn{padding:8px 11px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  Supabase Config
+// ══════════════════════════════════════════
+const SUPABASE_URL = 'https://azkyveftbxrmfytszddz.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF6a3l2ZWZ0YnhybWZ5dHN6ZGR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0OTg2NzMsImV4cCI6MjA5MDA3NDY3M30.NkCPIe20Vwjnaf5eRsNnTrtGn6IBV4pXW-mUhWLUhAY';
+const HEADERS = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=representation'};
+
+async function sbGet(table, params='') {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${params}`, {headers:HEADERS});
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbPost(table, data) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {method:'POST',headers:HEADERS,body:JSON.stringify(data)});
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbPatch(table, match, data) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${match}`, {method:'PATCH',headers:HEADERS,body:JSON.stringify(data)});
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbDelete(table, match) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${match}`, {method:'DELETE',headers:HEADERS});
+  if (!r.ok) throw new Error(await r.text());
+}
+async function sbRpc(fn, params) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {method:'POST',headers:HEADERS,body:JSON.stringify(params)});
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+
+// ══════════════════════════════════════════
+//  State
+// ══════════════════════════════════════════
+const TYPES = {operations:{label:'운영위원회',color:'ops'},congregation:{label:'공동의회',color:'cong'}};
+const ROLES = {pastor:{label:'담임목사',class:'role-pastor'},secretary:{label:'서기',class:'role-secretary'},viewer:{label:'열람자',class:'role-viewer'}};
+const PERMS = {pastor:{create:true,edit:true,delete:true,manage:true},secretary:{create:true,edit:true,delete:false,manage:false},viewer:{create:false,edit:false,delete:false,manage:false}};
+
+let state = {view:'login',user:null,minutes:[],current:null,agendaItems:[],filterType:'all',search:'',loading:false,toast:null,modal:null};
+function setState(p){Object.assign(state,p);render()}
+function showToast(m){state.toast=m;render();setTimeout(()=>{state.toast=null;render()},2200)}
+const app=document.getElementById('app');
+const $=(s,p)=>(p||document).querySelector(s);
+const $$=(s,p)=>[...(p||document).querySelectorAll(s)];
+function esc(s){if(!s)return'';const el=document.createElement('div');el.textContent=s;return el.innerHTML}
+function formatDate(s){if(!s)return'';const d=new Date(s+'T00:00:00');const wd=['일','월','화','수','목','금','토'][d.getDay()];return`${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일(${wd})`}
+function can(action){return state.user&&PERMS[state.user.role]&&PERMS[state.user.role][action]}
+
+// ══════════════════════════════════════════
+//  Session
+// ══════════════════════════════════════════
+function saveSession(){if(state.user)localStorage.setItem('cm-session',JSON.stringify(state.user));else localStorage.removeItem('cm-session')}
+function loadSession(){try{const s=localStorage.getItem('cm-session');if(s)return JSON.parse(s)}catch{}return null}
+
+// ══════════════════════════════════════════
+//  Data
+// ══════════════════════════════════════════
+async function loadMinutes(){
+  state.loading=true;render();
+  try{
+    const mins=await sbGet('minutes','order=date.desc,created_at.desc');
+    for(const m of mins){
+      const items=await sbGet('agenda_items',`minute_id=eq.${m.id}&order=sort_order.asc`);
+      m.agendaItems=items||[];
+    }
+    state.minutes=mins;
+  }catch(e){console.error(e);showToast('데이터를 불러오지 못했습니다')}
+  state.loading=false;render();
+}
+
+async function saveMinute(m, items){
+  state.loading=true;render();
+  try{
+    const exists=state.minutes.find(x=>x.id===m.id);
+    const payload={type:m.type,title:m.title,date:m.date||null,location:m.location,chairperson:m.chairperson,secretary:m.secretary,attendees:m.attendees,absentees:m.absentees,opening_prayer:m.openingPrayer,closing_prayer:m.closingPrayer,next_meeting:m.nextMeeting,notes:m.notes,updated_at:new Date().toISOString()};
+    let saved;
+    if(exists){
+      const res=await sbPatch('minutes',`id=eq.${m.id}`,payload);
+      saved=res[0];
+    }else{
+      payload.created_by=state.user.id;
+      payload.is_example=false;
+      const res=await sbPost('minutes',payload);
+      saved=res[0];
+    }
+    // Delete old agenda items and insert new
+    await sbDelete('agenda_items',`minute_id=eq.${saved.id}`);
+    if(items.length){
+      const agendaPayload=items.map((a,i)=>({minute_id:saved.id,sort_order:i,title:a.title,content:a.content,decision:a.decision}));
+      await sbPost('agenda_items',agendaPayload);
+    }
+    await loadMinutes();
+    const full=state.minutes.find(x=>x.id===saved.id);
+    state.current=full;
+    state.agendaItems=full?full.agendaItems:[];
+    showToast('저장되었습니다');
+    setState({view:'viewer',loading:false});
+  }catch(e){console.error(e);showToast('저장에 실패했습니다');state.loading=false;render()}
+}
+
+async function deleteMinute(id){
+  state.loading=true;render();
+  try{
+    await sbDelete('agenda_items',`minute_id=eq.${id}`);
+    await sbDelete('minutes',`id=eq.${id}`);
+    await loadMinutes();
+    showToast('삭제되었습니다');
+    setState({view:'list',current:null,loading:false});
+  }catch(e){console.error(e);showToast('삭제에 실패했습니다');state.loading=false;render()}
+}
+
+// ══════════════════════════════════════════
+//  Templates
+// ══════════════════════════════════════════
+function getTemplate(type){
+  const today=new Date().toISOString().split('T')[0];
+  if(type==='operations')return{type,title:'제__회 운영위원회 회의록',date:today,location:'본교회 소예배실',chairperson:'',secretary:'',attendees:'',absentees:'',openingPrayer:'',closingPrayer:'',nextMeeting:'',notes:'',agendaItems:[
+    {title:'전회 회의록 인준',content:'전회(제__회) 회의록을 낭독하고 이상 없음을 확인하여 참석 위원 전원의 동의로 인준하다.',decision:'원안대로 인준'},
+    {title:'재정 보고',content:'○○월 재정 현황을 보고하다.\n- 수입: ___원\n- 지출: ___원\n- 잔액: ___원',decision:'보고대로 승인'},
+    {title:'안건 1: (안건 제목)',content:'(안건에 대한 상세 설명 및 논의 내용을 기록합니다)\n\n[논의 사항]\n- \n- ',decision:'(찬성 __명, 반대 __명으로 가결/부결)'}
+  ]};
+  return{type,title:'제__회 공동의회 회의록',date:today,location:'본교회 본당',chairperson:'',secretary:'',attendees:'',absentees:'',openingPrayer:'',closingPrayer:'',nextMeeting:'',notes:'',agendaItems:[
+    {title:'성원 보고',content:'공동의회 성원을 보고하다.\n- 공동의회 구성원 총 __명 중 __명 출석\n- 위임장 제출 __명\n- 성원이 됨을 선포하다.',decision:'성원 확인'},
+    {title:'전년도 결산 보고 및 승인',content:'○○○○년도 결산을 보고하다.\n- 총 수입: ___원\n- 총 지출: ___원\n- 이월금: ___원',decision:'출석 의원 과반수 찬성으로 승인'},
+    {title:'신년도 예산(안) 심의 및 의결',content:'○○○○년도 예산(안)을 상정하다.\n- 총 예산: ___원',decision:'출석 의원 과반수 찬성으로 의결'},
+    {title:'임원 선출',content:'(해당 시) 임기 만료에 따른 임원 선출을 진행하다.\n- 후보: \n- 투표 방식: 무기명 비밀투표',decision:'투표 결과 ___을(를) 선출하다'}
+  ]};
+}
+
+// ══════════════════════════════════════════
+//  PDF
+// ══════════════════════════════════════════
+function printMinute(m){
+  const tc=m.type==='operations'?'#1B6B4A':'#8B5A2B';
+  const tl=TYPES[m.type].label;
+  const agenda=m.agendaItems.map((a,i)=>`<div style="margin-bottom:13px;page-break-inside:avoid"><div style="font-weight:bold;font-size:10.5pt;margin-bottom:2px">${i+1}. ${esc(a.title)}</div><div style="font-size:10pt;padding-left:12px;white-space:pre-wrap;line-height:1.7">${esc(a.content)}</div>${a.decision?`<div style="font-size:10pt;margin-top:4px;padding:4px 10px;background:#f9f9f9;border-left:3px solid ${tc}"><b>의결사항:</b> ${esc(a.decision)}</div>`:''}</div>`).join('');
+  const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><style>@page{size:A4;margin:20mm 18mm}*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:11pt;line-height:1.7;color:#222}.page{max-width:170mm;margin:0 auto}.hdr{text-align:center;border-bottom:3px double #333;padding-bottom:13px;margin-bottom:16px}.cn{font-size:10pt;color:#666;margin-bottom:3px}.dt{font-size:18pt;font-weight:bold;letter-spacing:2px}.tb{display:inline-block;font-size:9pt;padding:2px 12px;border:1.5px solid ${tc};color:${tc};border-radius:3px;margin-top:5px}table.info{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:10pt}table.info td{padding:5px 8px;border:1px solid #bbb}table.info .lb{background:#f5f5f5;font-weight:bold;width:78px;text-align:center}.st{font-size:11pt;font-weight:bold;background:#f0f0f0;padding:5px 10px;margin:14px 0 10px;border-left:4px solid ${tc}}.sa{display:flex;justify-content:center;gap:56px;margin-top:36px}.sb{text-align:center}.sl{width:110px;border-bottom:1px solid #333;height:38px;margin-bottom:4px}.fl{font-size:10pt;margin-top:4px}</style></head><body><div class="page"><div class="hdr"><div class="cn">진실한숲교회</div><div class="dt">${esc(m.title)}</div><div class="tb">${tl}</div></div><table class="info"><tr><td class="lb">일 시</td><td>${esc(formatDate(m.date))}</td><td class="lb">장 소</td><td>${esc(m.location)}</td></tr><tr><td class="lb">의 장</td><td>${esc(m.chairperson)}</td><td class="lb">서 기</td><td>${esc(m.secretary)}</td></tr><tr><td class="lb">출석자</td><td colspan="3">${esc(m.attendees)}</td></tr>${m.absentees?`<tr><td class="lb">결석자</td><td colspan="3">${esc(m.absentees)}</td></tr>`:''}</table>${m.opening_prayer||m.openingPrayer?`<p class="fl"><b>개회기도:</b> ${esc(m.opening_prayer||m.openingPrayer)}</p>`:''}<div class="st">회 의 내 용</div>${agenda}${m.closing_prayer||m.closingPrayer?`<p class="fl" style="margin-top:12px"><b>폐회기도:</b> ${esc(m.closing_prayer||m.closingPrayer)}</p>`:''}${m.next_meeting||m.nextMeeting?`<p class="fl"><b>다음 회의:</b> ${esc(m.next_meeting||m.nextMeeting)}</p>`:''}${m.notes?`<div class="st">비 고</div><p class="fl">${esc(m.notes).replace(/\n/g,'<br>')}</p>`:''}<div class="sa"><div class="sb"><div class="sl"></div><div style="font-size:10pt">의장 (인)</div></div><div class="sb"><div class="sl"></div><div style="font-size:10pt">서기 (인)</div></div></div></div></body></html>`;
+  const w=window.open('','_blank','width=800,height=1000');
+  if(w){w.document.write(html);w.document.close();setTimeout(()=>w.print(),500)}
+  else showToast('팝업이 차단되었습니다');
+}
+
+// ══════════════════════════════════════════
+//  Normalize DB fields to camelCase
+// ══════════════════════════════════════════
+function norm(m){
+  return{...m,openingPrayer:m.opening_prayer||'',closingPrayer:m.closing_prayer||'',nextMeeting:m.next_meeting||'',isExample:m.is_example||false,agendaItems:m.agendaItems||[]};
+}
+
+// ══════════════════════════════════════════
+//  Render
+// ══════════════════════════════════════════
+function render(){
+  if(state.view==='login')renderLogin();
+  else if(state.view==='list')renderList();
+  else if(state.view==='viewer')renderViewer();
+  else if(state.view==='editor')renderEditor();
+  else if(state.view==='settings')renderSettings();
+
+  // Toast
+  const old=$('.toast');if(old)old.remove();
+  if(state.toast){const t=document.createElement('div');t.className='toast';t.textContent=state.toast;document.body.appendChild(t)}
+
+  // Modal
+  const oldM=$('.modal-overlay');if(oldM)oldM.remove();
+  if(state.modal){
+    const ov=document.createElement('div');ov.className='modal-overlay';
+    ov.innerHTML=`<div class="modal-box"><div class="modal-title">${state.modal.title}</div><div class="modal-text">${state.modal.text}</div><div class="modal-actions"><button class="btn btn-secondary btn-sm" id="mc">취소</button><button class="btn ${state.modal.btnClass||'btn-danger'} btn-sm" id="mok">${state.modal.btnLabel||'확인'}</button></div></div>`;
+    document.body.appendChild(ov);
+    $('#mc').onclick=()=>{state.modal=null;render()};
+    $('#mok').onclick=()=>{state.modal.onConfirm();state.modal=null};
+    ov.onclick=e=>{if(e.target===ov){state.modal=null;render()}};
+  }
+}
+
+// ── Login ──
+function renderLogin(){
+  app.innerHTML=`<div class="login-wrap"><div class="login-box anim-up">
+    <div style="text-align:center;margin-bottom:20px">
+    <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:80px;margin-bottom:12px"><defs><linearGradient id="lbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FAF7F0"/><stop offset="100%" stop-color="#F0EADE"/></linearGradient></defs><rect width="180" height="180" rx="36" fill="url(#lbg)"/><circle cx="90" cy="86" r="58" fill="none" stroke="#6B4F2E" stroke-width="2.5"/><circle cx="90" cy="86" r="52" fill="none" stroke="#6B4F2E" stroke-width="0.8"/><g fill="#6B4F2E"><circle cx="90" cy="28.5" r="2"/><circle cx="90" cy="143.5" r="2"/><circle cx="32.5" cy="86" r="2"/><circle cx="147.5" cy="86" r="2"/><circle cx="49" cy="45" r="1.5"/><circle cx="131" cy="45" r="1.5"/><circle cx="49" cy="127" r="1.5"/><circle cx="131" cy="127" r="1.5"/></g><g transform="translate(90,56)" fill="#6B4F2E"><rect x="-1.5" y="-8" width="3" height="16" rx="1"/><rect x="-6" y="-3.5" width="12" height="3" rx="1"/></g><text x="90" y="90" text-anchor="middle" font-family="serif" font-weight="900" font-size="22" fill="#6B4F2E">회의록</text><text x="90" y="118" text-anchor="middle" font-family="serif" font-weight="600" font-size="9.5" fill="#8B7A5E" letter-spacing="1">진실한숲교회</text><text x="90" y="165" text-anchor="middle" font-family="serif" font-weight="600" font-size="10" fill="#B0A080" letter-spacing="2">MINUTES</text></svg>
+    <h1>회의록 관리</h1><div class="sub">아이디와 비밀번호를 입력하세요</div></div>
+    <div class="login-error" id="lerr"></div>
+    <div style="margin-bottom:10px"><label class="form-label">아이디</label><input class="form-input" id="lid" placeholder="pastor / secretary / viewer" autocomplete="username"></div>
+    <div style="margin-bottom:18px"><label class="form-label">비밀번호</label><input class="form-input" id="lpw" type="password" placeholder="비밀번호" autocomplete="current-password"></div>
+    <button class="btn btn-primary btn-block" id="lbtn">로그인</button>
+  </div></div>`;
+
+  const doLogin=async()=>{
+    const u=$('#lid').value.trim(),p=$('#lpw').value;
+    if(!u||!p){$('#lerr').style.display='block';$('#lerr').textContent='아이디와 비밀번호를 입력해 주세요';return}
+    $('#lbtn').disabled=true;$('#lbtn').textContent='로그인 중...';
+    try{
+      const res=await sbRpc('verify_login',{p_username:u,p_password:p});
+      if(res&&res.length>0){
+        state.user=res[0];saveSession();
+        await loadMinutes();
+        setState({view:'list'});
+      }else{$('#lerr').style.display='block';$('#lerr').textContent='아이디 또는 비밀번호가 올바르지 않습니다';$('#lbtn').disabled=false;$('#lbtn').textContent='로그인'}
+    }catch(e){console.error(e);$('#lerr').style.display='block';$('#lerr').textContent='서버 연결에 실패했습니다';$('#lbtn').disabled=false;$('#lbtn').textContent='로그인'}
+  };
+  $('#lbtn').onclick=doLogin;
+  $('#lpw').onkeydown=e=>{if(e.key==='Enter')doLogin()};
+  $('#lid').onkeydown=e=>{if(e.key==='Enter')$('#lpw').focus()};
+}
+
+// ── List ──
+function renderList(){
+  const u=state.user;const ri=ROLES[u.role];
+  const filtered=state.minutes.map(norm).filter(m=>{
+    if(state.filterType!=='all'&&m.type!==state.filterType)return false;
+    if(state.search){const q=state.search.toLowerCase();return m.title.toLowerCase().includes(q)||(m.chairperson||'').toLowerCase().includes(q)||(m.attendees||'').toLowerCase().includes(q)||m.agendaItems.some(a=>a.title.toLowerCase().includes(q)||a.content.toLowerCase().includes(q))}
+    return true;
+  });
+
+  app.innerHTML=`<div class="container">
+    <div class="user-bar"><div class="user-info"><span class="user-role ${ri.class}">${ri.label}</span><span style="font-weight:600;color:var(--text2)">${esc(u.display_name)}</span></div><div style="display:flex;gap:6px"><button class="btn btn-secondary btn-sm" id="btn-settings">⚙️ 설정</button><button class="btn btn-secondary btn-sm" id="btn-logout">로그아웃</button></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px;border-bottom:2px solid var(--border2);margin-bottom:16px">
+      <div><div style="font-size:10px;font-weight:700;color:var(--text5);letter-spacing:2.5px">진실한숲교회</div><div style="font-size:22px;font-weight:900;color:var(--text1)">회의록 관리</div></div>
+      ${can('create')?`<div style="display:flex;gap:6px;flex-wrap:wrap" class="header-actions"><button class="btn btn-ops btn-sm" id="new-ops">+ 운영위원회</button><button class="btn btn-cong btn-sm" id="new-cong">+ 공동의회</button></div>`:''}
+    </div>
+    <div class="filter-bar"><div class="filter-tabs"><button class="filter-tab ${state.filterType==='all'?'active':''}" data-ft="all">전체</button><button class="filter-tab ${state.filterType==='operations'?'active':''}" data-ft="operations">운영위원회</button><button class="filter-tab ${state.filterType==='congregation'?'active':''}" data-ft="congregation">공동의회</button></div><input class="search-input" placeholder="🔍 회의록 검색..." value="${esc(state.search)}" id="si"></div>
+    ${state.loading?'<div class="loading-wrap"><div class="spinner"></div><span>불러오는 중...</span></div>':`
+    <div class="card-list anim-up">${filtered.length===0?`<div class="empty"><div class="empty-icon">📋</div><div class="empty-title">${state.search?'검색 결과가 없습니다':'아직 회의록이 없습니다'}</div><div class="empty-sub">${can('create')?'위의 버튼으로 새 회의록을 작성해 보세요':'서기 또는 목사 계정으로 로그인하여 작성하세요'}</div></div>`:filtered.map(m=>{const t=TYPES[m.type];return`<div class="minute-card" data-type="${m.type}" data-id="${m.id}"><div class="card-top"><div><div class="card-badges"><span class="badge badge-${t.color}">${t.label}</span>${m.isExample?'<span class="badge badge-example">예시</span>':''}</div><div class="card-title">${esc(m.title)}</div><div class="card-meta">${formatDate(m.date)}${m.location?' · '+esc(m.location):''}</div>${m.chairperson?`<div class="card-meta2">의장: ${esc(m.chairperson)}</div>`:''}</div><div class="card-actions"><button class="btn-icon cp" data-id="${m.id}" title="PDF 출력">🖨️</button>${can('delete')&&!m.isExample?`<button class="btn-icon cd" data-id="${m.id}" title="삭제">🗑️</button>`:''}</div></div><div class="card-footer">안건 ${m.agendaItems.length}건</div></div>`}).join('')}</div>`}
+    <div class="info-box anim-up" style="margin-top:20px"><div class="info-title">💡 사용 안내</div>
+      <b>예시 회의록</b>을 참고하여 실제 회의록 작성 형식을 확인하세요<br>
+      새 회의록 작성 시 <b>템플릿</b>이 자동으로 채워집니다<br>
+      🖨️ 버튼으로 <b>PDF 출력</b> → 카카오톡/이메일로 공유하세요<br>
+      모든 데이터는 <b>서버에 자동 저장</b>됩니다<br>
+      ${u.role==='viewer'?'<br>⚠️ 열람자 계정은 보기와 PDF 출력만 가능합니다':''}
+    </div>
+  </div>`;
+
+  // Events
+  $('#btn-logout').onclick=()=>{state.user=null;saveSession();setState({view:'login',minutes:[]})};
+  $('#btn-settings').onclick=()=>setState({view:'settings'});
+  if(can('create')){$('#new-ops')&&($('#new-ops').onclick=()=>{const t=getTemplate('operations');state.current=t;state.agendaItems=[...t.agendaItems];setState({view:'editor'})});$('#new-cong')&&($('#new-cong').onclick=()=>{const t=getTemplate('congregation');state.current=t;state.agendaItems=[...t.agendaItems];setState({view:'editor'})})}
+  $$('.filter-tab').forEach(b=>b.onclick=()=>setState({filterType:b.dataset.ft}));
+  const si=$('#si');if(si)si.oninput=e=>{state.search=e.target.value;render()};
+  $$('.minute-card').forEach(c=>{c.onclick=e=>{if(e.target.closest('.card-actions'))return;const m=state.minutes.find(x=>x.id===c.dataset.id);if(m){state.current=norm(m);state.agendaItems=state.current.agendaItems;setState({view:'viewer'})}}});
+  $$('.cp').forEach(b=>{b.onclick=e=>{e.stopPropagation();const m=state.minutes.find(x=>x.id===b.dataset.id);if(m)printMinute(norm(m))}});
+  $$('.cd').forEach(b=>{b.onclick=e=>{e.stopPropagation();state.modal={title:'회의록 삭제',text:'이 회의록을 삭제하시겠습니까?<br>삭제 후 복구할 수 없습니다.',onConfirm:()=>deleteMinute(b.dataset.id)};render()}});
+}
+
+// ── Viewer ──
+function renderViewer(){
+  const m=state.current;const t=TYPES[m.type];const tc=t.color;
+  app.innerHTML=`<div class="container"><button class="btn btn-secondary btn-sm" id="bl" style="margin-bottom:14px">← 목록으로</button>
+    <div class="viewer-doc anim-up"><div class="viewer-header"><div class="viewer-church">진실한숲교회</div><div class="viewer-title">${esc(m.title)}</div><span class="viewer-badge viewer-badge-${tc}">${t.label}</span></div>
+    <div class="info-grid"><div class="ig-label">일 시</div><div class="ig-value">${esc(formatDate(m.date))}</div><div class="ig-label">장 소</div><div class="ig-value">${esc(m.location)}</div><div class="ig-label">의 장</div><div class="ig-value">${esc(m.chairperson)}</div><div class="ig-label">서 기</div><div class="ig-value">${esc(m.secretary)}</div><div class="ig-label">출석자</div><div class="ig-value info-grid-full">${esc(m.attendees)}</div>${m.absentees?`<div class="ig-label">결석자</div><div class="ig-value info-grid-full">${esc(m.absentees)}</div>`:''}</div>
+    ${m.openingPrayer?`<div class="viewer-field"><b>개회기도:</b> ${esc(m.openingPrayer)}</div>`:''}
+    <div class="viewer-section-title viewer-section-title-${tc}">회 의 내 용</div>
+    ${m.agendaItems.map((a,i)=>`<div class="viewer-agenda"><div class="viewer-agenda-title">${i+1}. ${esc(a.title)}</div><div class="viewer-agenda-content">${esc(a.content)}</div>${a.decision?`<div class="viewer-decision viewer-decision-${tc}"><b>의결사항:</b> ${esc(a.decision)}</div>`:''}</div>`).join('')}
+    ${m.closingPrayer?`<div class="viewer-field" style="margin-top:12px"><b>폐회기도:</b> ${esc(m.closingPrayer)}</div>`:''}
+    ${m.nextMeeting?`<div class="viewer-field"><b>다음 회의:</b> ${esc(m.nextMeeting)}</div>`:''}
+    ${m.notes?`<div class="viewer-section-title viewer-section-title-${tc}">비 고</div><div style="font-size:13px;color:var(--text2);white-space:pre-wrap;padding:0 4px">${esc(m.notes)}</div>`:''}
+    <div class="sign-area"><div class="sign-box"><div class="sign-line"></div><div class="sign-label">의장 (인)</div></div><div class="sign-box"><div class="sign-line"></div><div class="sign-label">서기 (인)</div></div></div></div>
+    <div class="viewer-actions"><button class="btn btn-secondary btn-sm" id="bp">🖨️ PDF 출력</button>${can('edit')&&!m.isExample?`<button class="btn btn-primary btn-sm" id="be">수정하기</button>`:''}</div>
+  </div>`;
+  $('#bl').onclick=()=>setState({view:'list',current:null});
+  $('#bp').onclick=()=>printMinute(m);
+  const be=$('#be');if(be)be.onclick=()=>{state.agendaItems=JSON.parse(JSON.stringify(m.agendaItems));setState({view:'editor'})};
+}
+
+// ── Editor ──
+function renderEditor(){
+  const m=state.current;const t=TYPES[m.type];const isNew=!m.id||!state.minutes.find(x=>x.id===m.id);
+  app.innerHTML=`<div class="container anim-up">
+    <div class="form-header"><div class="form-header-bar" style="background:var(--${t.color})"></div><div><small style="color:var(--${t.color})">${t.label}</small><h2>회의록 ${isNew?'작성':'수정'}</h2></div></div>
+    <div class="form-grid">
+      <div><label class="form-label">회의 제목</label><input class="form-input" id="ft" value="${esc(m.title)}"></div>
+      <div class="form-row2"><div><label class="form-label">일시</label><input type="date" class="form-input" id="fd" value="${m.date||''}"></div><div><label class="form-label">장소</label><input class="form-input" id="fl" value="${esc(m.location)}"></div></div>
+      <div class="form-row2"><div><label class="form-label">의장</label><input class="form-input" id="fc" value="${esc(m.chairperson)}"></div><div><label class="form-label">서기</label><input class="form-input" id="fs" value="${esc(m.secretary)}"></div></div>
+      <div><label class="form-label">출석자</label><input class="form-input" id="fa" value="${esc(m.attendees)}"></div>
+      <div><label class="form-label">결석자</label><input class="form-input" id="fab" value="${esc(m.absentees)}"></div>
+      <div><label class="form-label">개회기도</label><input class="form-input" id="fo" value="${esc(m.openingPrayer)}"></div>
+      <div><label class="form-label">회의 안건</label><div id="ac">${state.agendaItems.map((a,i)=>agendaHTML(a,i)).join('')}</div><button class="agenda-add" id="aa">+ 안건 추가</button></div>
+      <div><label class="form-label">폐회기도</label><input class="form-input" id="fcp" value="${esc(m.closingPrayer)}"></div>
+      <div><label class="form-label">다음 회의</label><input class="form-input" id="fn" value="${esc(m.nextMeeting)}"></div>
+      <div><label class="form-label">비고</label><textarea class="form-input" id="fno" rows="2">${esc(m.notes)}</textarea></div>
+    </div>
+    <div class="form-actions"><button class="btn btn-secondary" id="bcan">취소</button><button class="btn btn-primary" id="bsav">💾 저장하기</button></div>
+  </div>`;
+
+  bindAgenda();
+  $('#aa').onclick=()=>{state.agendaItems.push({title:'안건 '+(state.agendaItems.length+1),content:'',decision:''});collectAgenda();$('#ac').innerHTML=state.agendaItems.map((a,i)=>agendaHTML(a,i)).join('');bindAgenda()};
+  $('#bsav').onclick=()=>{collectForm();collectAgenda();saveMinute(state.current,state.agendaItems)};
+  $('#bcan').onclick=()=>{if(m.id&&state.minutes.find(x=>x.id===m.id)){const orig=norm(state.minutes.find(x=>x.id===m.id));state.current=orig;state.agendaItems=orig.agendaItems;setState({view:'viewer'})}else setState({view:'list',current:null})};
+}
+
+function agendaHTML(a,i){
+  return`<div class="agenda-item-card" data-idx="${i}"><div class="agenda-item-top"><span class="agenda-item-num">안건 ${i+1}</span><button class="agenda-remove ar" data-idx="${i}">×</button></div><input class="form-input at" value="${esc(a.title)}" placeholder="안건 제목" data-idx="${i}"><textarea class="form-input act" rows="3" placeholder="논의 내용" data-idx="${i}">${esc(a.content)}</textarea><input class="form-input agenda-decision-input ad" value="${esc(a.decision)}" placeholder="의결사항" data-idx="${i}"></div>`;
+}
+function bindAgenda(){$$('.ar').forEach(b=>{b.onclick=()=>{if(state.agendaItems.length<=1)return;collectAgenda();state.agendaItems.splice(+b.dataset.idx,1);$('#ac').innerHTML=state.agendaItems.map((a,i)=>agendaHTML(a,i)).join('');bindAgenda()}})}
+function collectAgenda(){$$('.agenda-item-card').forEach(c=>{const i=+c.dataset.idx;const a=state.agendaItems[i];if(!a)return;const t=c.querySelector('.at');const ct=c.querySelector('.act');const d=c.querySelector('.ad');if(t)a.title=t.value;if(ct)a.content=ct.value;if(d)a.decision=d.value})}
+function collectForm(){const m=state.current;m.title=($('#ft')||{}).value||m.title;m.date=($('#fd')||{}).value||'';m.location=($('#fl')||{}).value||'';m.chairperson=($('#fc')||{}).value||'';m.secretary=($('#fs')||{}).value||'';m.attendees=($('#fa')||{}).value||'';m.absentees=($('#fab')||{}).value||'';m.openingPrayer=($('#fo')||{}).value||'';m.closingPrayer=($('#fcp')||{}).value||'';m.nextMeeting=($('#fn')||{}).value||'';m.notes=($('#fno')||{}).value||''}
+
+// ── Settings ──
+function renderSettings(){
+  const u=state.user;
+  app.innerHTML=`<div class="container anim-up">
+    <button class="btn btn-secondary btn-sm" id="sb" style="margin-bottom:16px">← 돌아가기</button>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:20px">⚙️ 설정</h2>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:14px">🔒 비밀번호 변경</h3>
+      <div style="margin-bottom:8px"><label class="form-label">현재 비밀번호</label><input class="form-input" type="password" id="pw-old"></div>
+      <div style="margin-bottom:8px"><label class="form-label">새 비밀번호</label><input class="form-input" type="password" id="pw-new"></div>
+      <div style="margin-bottom:14px"><label class="form-label">새 비밀번호 확인</label><input class="form-input" type="password" id="pw-conf"></div>
+      <div id="pw-msg" style="font-size:12px;margin-bottom:8px;display:none"></div>
+      <button class="btn btn-primary btn-sm" id="pw-btn">비밀번호 변경</button>
+    </div>
+
+    ${can('manage')?`
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:14px">👥 계정 관리 (목사 전용)</h3>
+      <div id="user-list">불러오는 중...</div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+        <h4 style="font-size:13px;font-weight:700;margin-bottom:10px">새 계정 추가</h4>
+        <div class="form-row2" style="margin-bottom:8px"><div><label class="form-label">아이디</label><input class="form-input" id="nu-id" placeholder="영문 아이디"></div><div><label class="form-label">이름</label><input class="form-input" id="nu-name" placeholder="표시 이름"></div></div>
+        <div class="form-row2" style="margin-bottom:8px"><div><label class="form-label">비밀번호</label><input class="form-input" id="nu-pw" type="password"></div><div><label class="form-label">역할</label><select class="form-input" id="nu-role"><option value="viewer">열람자</option><option value="secretary">서기</option><option value="pastor">담임목사</option></select></div></div>
+        <div id="nu-msg" style="font-size:12px;margin-bottom:8px;display:none"></div>
+        <button class="btn btn-primary btn-sm" id="nu-btn">계정 추가</button>
+      </div>
+    </div>`:''}
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:8px">ℹ️ 계정 정보</h3>
+      <div style="font-size:13px;color:var(--text3);line-height:1.8">
+        아이디: <b>${esc(u.username)}</b><br>이름: <b>${esc(u.display_name)}</b><br>역할: <b>${ROLES[u.role].label}</b>
+      </div>
+    </div>
+  </div>`;
+
+  $('#sb').onclick=()=>setState({view:'list'});
+
+  // Password change
+  $('#pw-btn').onclick=async()=>{
+    const o=$('#pw-old').value,n=$('#pw-new').value,c=$('#pw-conf').value;
+    const msg=$('#pw-msg');
+    if(!o||!n){msg.style.display='block';msg.style.color='#D4726A';msg.textContent='모든 필드를 입력해 주세요';return}
+    if(n!==c){msg.style.display='block';msg.style.color='#D4726A';msg.textContent='새 비밀번호가 일치하지 않습니다';return}
+    if(n.length<4){msg.style.display='block';msg.style.color='#D4726A';msg.textContent='비밀번호는 4자 이상이어야 합니다';return}
+    try{
+      const r=await sbRpc('change_password',{p_user_id:u.id,p_old_password:o,p_new_password:n});
+      if(r===true||r===true){msg.style.display='block';msg.style.color='var(--ops)';msg.textContent='비밀번호가 변경되었습니다!';$('#pw-old').value='';$('#pw-new').value='';$('#pw-conf').value=''}
+      else{msg.style.display='block';msg.style.color='#D4726A';msg.textContent='현재 비밀번호가 올바르지 않습니다'}
+    }catch(e){msg.style.display='block';msg.style.color='#D4726A';msg.textContent='오류가 발생했습니다'}
+  };
+
+  // User management
+  if(can('manage')){
+    (async()=>{
+      try{
+        const users=await sbGet('users','order=created_at.asc');
+        const ul=$('#user-list');
+        if(ul)ul.innerHTML=users.map(usr=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+          <div><span class="user-role ${ROLES[usr.role]?.class||'role-viewer'}" style="margin-right:6px">${ROLES[usr.role]?.label||usr.role}</span><span style="font-size:13px;font-weight:600">${esc(usr.display_name)}</span><span style="font-size:11px;color:var(--text4);margin-left:6px">(${esc(usr.username)})</span></div>
+        </div>`).join('');
+      }catch(e){console.error(e)}
+    })();
+
+    $('#nu-btn').onclick=async()=>{
+      const id=$('#nu-id').value.trim(),nm=$('#nu-name').value.trim(),pw=$('#nu-pw').value,rl=$('#nu-role').value;
+      const msg=$('#nu-msg');
+      if(!id||!nm||!pw){msg.style.display='block';msg.style.color='#D4726A';msg.textContent='모든 필드를 입력해 주세요';return}
+      try{
+        // Use raw SQL via rpc wouldn't work easily, so insert with pre-hashed password
+        // We'll use a workaround: call a custom function or insert directly
+        // For simplicity, let's add an RPC for this
+        await sbRpc('verify_login',{p_username:'__check__',p_password:'__check__'}); // dummy to test connection
+        // Actually, we need to insert with crypt. Let's use the REST API with a raw POST
+        // Since we can't call crypt from client, we'll create the user via a function
+        // For now, let's just try inserting and see - the password will need to be hashed server-side
+        // Best approach: create an add_user function. For now, show a message.
+        msg.style.display='block';msg.style.color='var(--ops)';
+        msg.textContent='계정을 추가하려면 Supabase SQL Editor에서 아래 명령어를 실행해 주세요:';
+        const code=document.createElement('div');
+        code.style.cssText='background:#f5f3ee;padding:10px;border-radius:6px;font-size:11px;margin-top:6px;word-break:break-all;font-family:monospace';
+        code.textContent=`INSERT INTO users (username, password_hash, display_name, role) VALUES ('${id}', crypt('${pw}', gen_salt('bf')), '${nm}', '${rl}');`;
+        msg.after(code);
+      }catch(e){msg.style.display='block';msg.style.color='#D4726A';msg.textContent='오류가 발생했습니다'}
+    };
+  }
+}
+
+// ══════════════════════════════════════════
+//  Init
+// ══════════════════════════════════════════
+(async function init(){
+  const sess=loadSession();
+  if(sess){
+    state.user=sess;
+    render(); // show loading
+    await loadMinutes();
+    setState({view:'list'});
+  }else{render()}
+})();
+</script>
+<div id="install-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;padding:14px 16px;background:var(--text1);color:#fff;z-index:2000;animation:fadeUp .3s ease">
+  <div style="max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <div style="font-size:13px;line-height:1.4"><b>📋 홈 화면에 추가</b><br><span style="font-size:11px;opacity:.8">앱처럼 바로 실행할 수 있습니다</span></div>
+    <div style="display:flex;gap:8px;flex-shrink:0">
+      <button onclick="dismissInstall()" style="background:none;border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer">닫기</button>
+      <button id="install-btn" onclick="doInstall()" style="background:#fff;color:var(--text1);border:none;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer">설치</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// PWA Install prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if(!localStorage.getItem('cm-install-dismissed')){
+    document.getElementById('install-banner').style.display='block';
+  }
+});
+function doInstall(){
+  if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{deferredPrompt=null;document.getElementById('install-banner').style.display='none'})}
+  else{
+    // iOS Safari fallback - show instructions
+    const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+    if(isIOS){alert('Safari 하단의 공유 버튼(⬆️)을 누른 후\n"홈 화면에 추가"를 선택해 주세요.')}
+    else{alert('브라우저 메뉴(⋮)에서\n"홈 화면에 추가" 또는 "앱 설치"를 선택해 주세요.')}
+    document.getElementById('install-banner').style.display='none';
+  }
+}
+function dismissInstall(){document.getElementById('install-banner').style.display='none';localStorage.setItem('cm-install-dismissed','1')}
+
+// Register service worker for offline caching
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('data:text/javascript;base64,'+btoa(`
+    const CACHE='cm-v1';
+    const URLS=['/'];
+    self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(URLS)).then(()=>self.skipWaiting())));
+    self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
+    self.addEventListener('fetch',e=>{
+      if(e.request.method!=='GET')return;
+      e.respondWith(fetch(e.request).then(r=>{if(r.ok){const c=r.clone();caches.open(CACHE).then(cache=>cache.put(e.request,c))}return r}).catch(()=>caches.match(e.request)));
+    });
+  `)).catch(()=>{});
+}
+</script>
+</body>
+</html>
